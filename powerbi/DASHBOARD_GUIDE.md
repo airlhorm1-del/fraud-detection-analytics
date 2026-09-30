@@ -1,0 +1,55 @@
+# Power BI dashboard - build guide
+
+The pipeline writes small, ready-made tables into `powerbi/data/`. The dashboard reads those,
+not the 6.3 million raw rows.
+
+## 1. Load the data (Home > Get data > Text/CSV)
+
+| File | Load as table | What it holds |
+|---|---|---|
+| summary_by_day_hour_type.csv | Summary | Counts and amounts per day, hour and transaction type (3,700 rows) |
+| alerts.csv | Alerts | Every alert (9,625 rows): score, priority, reasons, outcome |
+| missed_fraud.csv | Missed | The 31 frauds without an alert |
+| rule_catalogue.csv | Rules | The six rules and their points |
+| rule_performance.csv | RulePerformance | Each rule on its own: precision and recall |
+| threshold_analysis.csv | Thresholds | Alert volume, precision and recall per threshold, with and without R1 |
+
+No relationships are needed: each page uses one table.
+
+## 2. Measures (Modeling > New measure)
+
+```DAX
+Transactions        = SUM ( Summary[transactions] )
+Fraud Cases         = SUM ( Summary[fraud_transactions] )
+Fraud Rate %        = DIVIDE ( [Fraud Cases], [Transactions] )
+Alerts              = SUM ( Summary[alerts] )
+Fraud Caught        = SUM ( Summary[alerts_confirmed_fraud] )
+False Alarms        = SUM ( Summary[false_alarms] )
+Fraud Missed        = SUM ( Summary[fraud_missed] )
+Precision %         = DIVIDE ( [Fraud Caught], [Alerts] )          -- alerts that were real fraud
+Recall %            = DIVIDE ( [Fraud Caught], [Fraud Cases] )     -- fraud that got an alert
+Fraud Amount        = SUM ( Summary[fraud_amount] )
+Fraud Amount Caught = SUM ( Summary[fraud_amount_caught] )
+Money Caught %      = DIVIDE ( [Fraud Amount Caught], [Fraud Amount] )
+Alerts per Day      = DIVIDE ( [Alerts], DISTINCTCOUNT ( Summary[day] ) )
+High Priority Alerts = CALCULATE ( COUNTROWS ( Alerts ), Alerts[priority] = "High" )
+```
+
+Format the % measures as percentages and the amounts with thousands separators.
+
+## 3. Pages
+
+1. **Overview** - cards: Fraud Cases, Alerts, Precision %, Recall %, Money Caught %.
+   Column chart: Fraud Cases and Alerts by day. Column chart: Fraud Rate % by hour.
+   Slicer: type.
+2. **Rules** - bar chart from RulePerformance (precision_pct and recall_pct by rule).
+   Line chart from Thresholds (precision_pct and recall_pct by threshold, one small multiple per
+   scenario). A short text box explaining why R1 is shown with and without.
+3. **Alert queue** - table from Alerts sorted by risk_score: txn_id, day, hour, type, amount,
+   priority, reasons, outcome. Slicers: priority, day, outcome. This is the analyst's work list.
+4. **Missed fraud** - table from Missed with a text box on why they were missed (see docs/cases.md, Case 3).
+
+## 4. Check it
+
+The Overview cards must match docs/results/02_evaluation.md: 8,213 fraud cases, 9,625 alerts,
+precision 85.0%, recall 99.6%.

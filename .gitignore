@@ -1,0 +1,16 @@
+# Python-generated files
+__pycache__/
+*.py[oc]
+build/
+dist/
+wheels/
+*.egg-info
+
+# Virtual environments
+.venv
+
+# Data: the raw PaySim download and generated files stay local (too big for GitHub)
+data/raw/
+data/processed/
+*.duckdb
+*.duckdb.wal

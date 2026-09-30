@@ -1,0 +1,11 @@
+scenario,threshold,alerts,alerts_per_day,fraud_caught,precision_pct,recall_pct,fraud_money_caught_pct
+All rules,25,27065.0,873.0,8184.0,30.2,99.6,99.9
+All rules,30,9625.0,310.0,8182.0,85.0,99.6,99.9
+All rules,40,8214.0,265.0,8181.0,99.6,99.6,99.9
+All rules,50,6721.0,217.0,6720.0,100.0,81.8,96.5
+All rules,60,4824.0,156.0,4824.0,100.0,58.7,61.8
+Without R1 (stress test),25,23840.0,769.0,4959.0,20.8,60.4,71.4
+Without R1 (stress test),30,5922.0,191.0,4479.0,75.6,54.5,61.8
+Without R1 (stress test),40,2309.0,74.0,2276.0,98.6,27.7,49.2
+Without R1 (stress test),50,2153.0,69.0,2152.0,100.0,26.2,45.6
+Without R1 (stress test),60,397.0,13.0,397.0,100.0,4.8,11.8

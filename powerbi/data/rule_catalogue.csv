@@ -1,0 +1,7 @@
+rule_id,rule_name,description,points
+R1,account_emptied,The whole sender balance leaves in one transaction,40
+R2,receiver_unchanged,Receiving account shows no balance before or after (money vanishes),25
+R3,night_time,"Between 00:00 and 06:59, when normal customer activity is very low",15
+R4,large_amount,"Amount of 1,000,000 or more",15
+R5,zero_amount,Zero-amount transaction (a test before the real theft),40
+R6,new_receiver,First time this receiving account appears,10
