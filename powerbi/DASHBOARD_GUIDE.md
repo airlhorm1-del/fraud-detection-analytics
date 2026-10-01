@@ -1,7 +1,7 @@
-# Power BI dashboard - build guide
+# Power BI: data model and DAX measures
 
-The pipeline writes small, ready-made tables into `powerbi/data/`. The dashboard reads those,
-not the 6.3 million raw rows.
+The pipeline writes small, ready-made tables into `powerbi/data/` for reporting, so a report reads
+those rather than the 6.3 million raw rows. This file lists the tables, the measures and the report pages.
 
 ## 1. Load the data (Home > Get data > Text/CSV)
 

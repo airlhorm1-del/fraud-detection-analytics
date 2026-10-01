@@ -4,11 +4,11 @@ One entry per significant choice: what was decided, why, and what it costs.
 
 ## 001 - Dataset: PaySim
 Public, synthetic mobile money transactions (6.3 million rows, 31 days) with fraud labels,
-modelled on a mobile money service in an African country. Close to the owner's banking
+modelled on a mobile money service in an African country. Close to my banking
 background and free to publish. Cost: it is simulated, so some patterns are cleaner than real
 life (see 006), and there are no customer details, devices or locations.
 
-## 002 - Tools: DuckDB and Python (uv), Power BI for the dashboard
+## 002 - Tools: DuckDB and Python (uv), Power BI-ready output tables
 6.3 million rows is too many for Excel (limit about 1 million). DuckDB runs SQL on the full data
 from Python with no database server. Power BI gets small summary and alert tables, not all rows.
 

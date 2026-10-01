@@ -57,7 +57,7 @@ transaction): [docs/cases.md](docs/cases.md).
 | 3. Clean | Consistent names, day and hour, receiver type, balance-quality flags | sql/10_clean.sql |
 | 4. Rules | Six rules, points, risk score, priority, reasons | sql/20_rules.sql |
 | 5. Evaluate | Precision, recall, money caught, threshold choice, stress test | scripts/04_evaluate.py, docs/results/02_evaluation.md |
-| 6. Dashboard | Power BI on the exported tables | powerbi/ |
+| 6. Power BI data | Alert, summary, rule and threshold tables plus DAX measures for reporting | powerbi/ |
 
 ## Run it
 
@@ -69,8 +69,8 @@ transaction): [docs/cases.md](docs/cases.md).
 
 Synthetic data: no customer details, devices or locations, and some patterns are cleaner than
 real life. Rules were set from the same month they are measured on (no separate test period).
-Next steps: a "same amount cashed out in the same hour" rule, and a simple model to compare with
-the rules.
+Possible extensions: a "same amount cashed out in the same hour" rule, and a simple model to
+compare with the rules.
 
 ## Data
 
@@ -79,7 +79,6 @@ fraud detection", EMSS 2016. Dataset on Kaggle: ealaxi/paysim1.
 
 ## How this was built
 
-<!-- Owner: check this paragraph is accurate before publishing. -->
 Built with Claude Code, an AI coding assistant, which wrote the SQL, the Python and first drafts
 of the write-ups. I set the goal and scope, drawing on my experience handling fraud cases in
 banking, and reviewed the findings and numbers against the data.
