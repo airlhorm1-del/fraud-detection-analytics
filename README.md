@@ -59,6 +59,9 @@ transaction): [docs/cases.md](docs/cases.md).
 | 5. Evaluate | Precision, recall, money caught, threshold choice, stress test | scripts/04_evaluate.py, docs/results/02_evaluation.md |
 | 6. Power BI data | Alert, summary, rule and threshold tables plus DAX measures for reporting | powerbi/ |
 
+Every data issue found and how it was resolved: [docs/DATA_QUALITY.md](docs/DATA_QUALITY.md).
+What each code file does: [docs/CODE_GUIDE.md](docs/CODE_GUIDE.md).
+
 ## Run it
 
 1. Install [uv](https://docs.astral.sh/uv/), then run `uv sync`.
