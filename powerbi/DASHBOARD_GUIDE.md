@@ -7,7 +7,7 @@ those rather than the 6.3 million raw rows. This file lists the tables, the meas
 
 | File | Load as table | What it holds |
 |---|---|---|
-| summary_by_day_hour_type.csv | Summary | Counts and amounts per day, hour and transaction type (3,700 rows) |
+| summary_by_day_hour_type.csv | Summary | Counts and amounts per day, hour and transaction type (2,729 rows: only the combinations that had transactions) |
 | alerts.csv | Alerts | Every alert (9,625 rows): score, priority, reasons, outcome |
 | missed_fraud.csv | Missed | The 31 frauds without an alert |
 | rule_catalogue.csv | Rules | The six rules and their points |
