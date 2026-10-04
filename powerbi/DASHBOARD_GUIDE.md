@@ -14,7 +14,18 @@ those rather than the 6.3 million raw rows. This file lists the tables, the meas
 | rule_performance.csv | RulePerformance | Each rule on its own: precision and recall |
 | threshold_analysis.csv | Thresholds | Alert volume, precision and recall per threshold, with and without R1 |
 
-No relationships are needed: each page uses one table.
+**Day and Hour tables (no date table, on purpose).** PaySim has no calendar dates, only simulation
+day 1-31 and the hour, so "Mark as date table" and time intelligence do not apply. Modeling > New table:
+
+```DAX
+Days  = SELECTCOLUMNS ( GENERATESERIES ( 1, 31, 1 ), "Day", [Value] )
+Hours = SELECTCOLUMNS ( GENERATESERIES ( 0, 23, 1 ), "Hour", [Value] )
+```
+
+Relationships (one-to-many, single direction): Days[Day] to Summary[day], Alerts[day] and Missed[day];
+Hours[Hour] to Summary[hour] and Alerts[hour]. One day or hour slicer then filters every visual. The
+other tables stay unlinked: Alerts and Missed never share a transaction, and Rules, RulePerformance
+and Thresholds are small finished results.
 
 ## 2. Measures (Modeling > New measure)
 
@@ -40,7 +51,7 @@ Format the % measures as percentages and the amounts with thousands separators.
 ## 3. Pages
 
 1. **Overview** - cards: Fraud Cases, Alerts, Precision %, Recall %, Money Caught %.
-   Column chart: Fraud Cases and Alerts by day. Column chart: Fraud Rate % by hour.
+   Column chart: Fraud Cases and Alerts by Days[Day]. Column chart: Fraud Rate % by Hours[Hour].
    Slicer: type.
 2. **Rules** - bar chart from RulePerformance (precision_pct and recall_pct by rule).
    Line chart from Thresholds (precision_pct and recall_pct by threshold, one small multiple per
